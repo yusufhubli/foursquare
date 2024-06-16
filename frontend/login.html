@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="container">
+      
+    <form id="login">
+<p id="sign">Login</p>
+<input type="email" name="email" id="email" class="name" placeholder="xyz@email.com" required>
+<input  type="text" name="text" id="pass" class="name" placeholder="password" required>
+<input type="checkbox" id="ma"><label id="term">I accept terms&conditions</label>
+<input type="submit" value="Login" id="btn">
+<div id="line">
+    <hr size="2" width="120" align="left" color="black"> <b id="or">OR</b> <hr size="2" width="120" color="black">
+    </div>
+<a href="register.html" id="reg">Register</a>
+</form>
+
+</div>
+<script>
+        let logg = JSON.parse(localStorage.getItem("log")) || []
+     
+           
+                let form = document.querySelector("form")
+                  //console.log(form)
+                  let login = []
+                  form.addEventListener("submit",(e)=>{
+                     console.log("in submit")
+                     e.preventDefault()
+                  let email = document.getElementById("email").value
+                  let pass = document.getElementById("pass").value
+                   login.push({
+                      email:email,
+                      password:pass
+                   })
+                   console.log(login)
+                  fetch('http://localhost/phpprograms/project1/backend/login.php', {
+                    method:'POST',
+                    header:{
+                        'content-type':'application/json',
+                        'accept':'application/json'
+                      },
+                      body:JSON.stringify(login)
+                  }).then(res=>{ return res.text()})
+                  .then(data=>{
+                    console.log(data)
+                    if(data !== ""){
+                       alert('welcome to 4square.com')
+                       if(logg == 0){
+                       logg.push({
+                        loggedin:data
+                       })
+                       location.href = `ahome.html`
+                       localStorage.setItem("log",JSON.stringify(logg))
+                    }else{
+                       
+                       location.href = `ahome.html`
+                    }  
+                      }else{
+                        alert("user does not exist please register")
+                        location.href=`register.html`
+                     }
+                  })
+                  })
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>product</title>
+    <link rel="stylesheet" href="product.css">
+</head>
+
+<body>
+    <nav>
+        <a href="ahome.html">
+        <img id="arrow" onclick="remove()" src="nav/arrow.png" width="40" height="44" alt=""></a>
+        <h1><span id="s">4</span>Squares.com</h1>
+        <a class="a" href="ahome.html">Buyer</a>
+        <a class="a" href="profile.html">Profile</a>
+        <a class="a" href="login.html">Login</a>
+        <p class="a" onclick="logout()">Logout</p>
+        <input type="search" name="" placeholder="Houses & Villas" id="srh">
+        <img id="icon" src="nav/srhh2.png" height="17" width="17" alt="">
+    </nav>
+    <div class="container">
+        <!--
+        <div class="product">
+            <div class="img-div">
+                <img id="img" src="home/home15.jpg" alt="image">
+            </div>
+            <div class="product-detail">
+                <p id="home-name">sameer manzil</p>
+                <p id="address">Lorem ipsum dolor sit amet consectetur.</p>
+                <div class="div-btn">
+                    <p id="price">Rs 20Lakh</p>
+                    <a style="text-decoration: none;" href=""><button id="book-btn">Book Now</button></a>
+                </div>
+                <h2>More Details</h2>
+                <hr size="2" color="black">
+                <p class="type">Type: <span id="type">Sell</span></p>
+                <p class="type">Builtup-Area: <span id="builtup-area">2200 sqft</span></p>
+                <p class="type">Total-Area: <span id="total-area">2600 sqft</span></p>
+                <p class="type">Owner: <span id="owner"> Mr A K Makandar</span></p>
+                <p class="type">about-house: <span id="about-home">Duplex ,5 Master bed rooms,a grand living area, open
+                        dinning-kitchan,Parking Area , front-Lawn , Back sit-out
+                    </span></p>
+            </div>
+        </div>
+    -->
+    </div>
+    <script>
+    
+        let product = JSON.parse(localStorage.getItem("data")) || []
+
+        let homedata = () => {
+            fetch('http://localhost/phpprograms/project1/backend/house.php', {
+                method: 'GET',
+                header: {
+                    'content-type': 'application/json',
+                    'accept': 'application/json'
+                }
+            }).then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    let home = data
+                    // console.log(home)
+                    productname(home)
+
+                })
+        }
+        homedata()
+
+        function productname(home) {
+            let items = product.map((x) => {
+                let {id} =x
+                console.log(id)
+                let search = home.find((x)=>x.id == id)
+                let {image, homeName, address, price, type, builtup_area, total_area, owner, about_home, agent, number } = search
+                return ` <div id=${id} class="product">
+                    <div class="img-div">
+                <img id="img" src="home/${image}" alt="image">
+            </div>
+            <div class="product-detail">
+                 <p id="home-name">${homeName}</p>
+                 <p id="address">${address}</p>
+                <div class="div-btn">
+                    <p id="price">${price}</p>
+                    <a style="text-decoration: none;" href="book.html"><button id="book-btn">Book Now</button></a>
+                </div>                
+                 <h2>More Details</h2>
+                 <hr size="2" color="black">
+                 <p class="type" >Type: <span id="type">${type}</span></p>
+                 <p class="type" >Builtup-Area: <span id="builtup-area">${builtup_area}</span></p>
+                 <p class="type" >Total-Area: <span id="total-area">${total_area}</span></p>
+                 <p class="type" >Owner: <span id="owner">${owner}</span></p>
+                 <p class="type" >about-house: <span id="about-home">${about_home}</span></p>
+            </div>
+        </div>`;
+            })
+            document.querySelector(".container").innerHTML = items
+          
+        }
+        let remove =()=>{
+    localStorage.removeItem('data')
+ }
+    </script>
+</body>
+
+</html>

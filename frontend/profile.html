@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>profile page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgb(245, 245, 245);
+            height: 800px;
+        }
+
+        /* navbar styling*/
+        nav {
+            margin: 0px 0px 10px 0px;
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            width: 100%;
+            height: 60px;
+            border-bottom: 1.5px solid rgba(255, 255, 255, 0.977);
+            box-shadow: 0px 2px 4px rgb(79, 78, 78);
+            position: fixed;
+            z-index: 1;
+        }
+
+        h1 {
+            font-weight: bolder;
+            margin: 10px 0px 0px 30px;
+            font-family: 'Lucida Sans Regular', Geneva, Verdana, sans-serif;
+        }
+
+        #s {
+            font-size: 32px;
+            font-weight: bolder;
+            font-style: italic;
+            letter-spacing: 2px;
+        }
+
+        .a {
+            cursor: pointer;
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 17px 0px 15px 10px;
+            padding: 5px 15px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 17px;
+            font-family: 'Lucida Sans Regular', Geneva, Verdana, sans-serif;
+        }
+
+        .a:hover {
+            color: white;
+            background-color: black;
+        }
+
+        #srh {
+            width: 550px;
+            padding: 0px 30px 0px 10px;
+            margin: 14px 0px 14px 60px;
+            border-radius: 5px;
+            outline: none;
+            border: 1px solid black;
+            font-size: 15px;
+            font-weight: bold;
+            background-color: rgb(245, 249, 249);
+        }
+
+        #srh::placeholder {
+            color: black;
+        }
+
+        .img {
+            margin: 15px 0px 15px 50px;
+        }
+
+        #icon {
+            margin: 22px 20px 0px -26px;
+
+        }
+
+        #h1 {
+            margin: 0;
+            text-align: center;
+            font-weight: bold;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+        }
+
+        /*profile styling*/
+        .profile {
+            position: absolute;
+            margin-top: 100px;
+            width: 100%;
+            height: auto;
+        }
+
+        .div-file {
+            width: 90%;
+            height: 320px;
+            margin: 50px 60px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 3px 3px 15px gainsboro, -3px -3px 15px gainsboro;
+
+        }
+
+        .pro-file {
+            width: 92%;
+            height: 200px;
+            display: flex;
+            align-items: center;
+        }
+
+        .file-dt {
+            margin: 0px 0px 0px 180px;
+            display: flex;
+            align-items: center;
+        }
+
+        .eml {
+            margin: 0px 80px 0px 100px;
+            padding: 5px 20px;
+            border-radius: 5px;
+            background-color: rgb(222, 221, 221);
+            font-size: 22px;
+            font-weight: bold;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .pho {
+            border-radius: 5px;
+            padding: 5px 20px;
+            background-color: rgb(222, 221, 221);
+            font-size: 22px;
+            font-weight: bold;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .dt-data {
+            font-size: 18px;
+            font-weight: bold;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        #pro-img {
+            margin: 0 50px 0 245px;
+            border-radius: 50%;
+            border: 2px solid black;
+        }
+
+        #name {
+            width: 210px;
+            text-align: center;
+            margin: 0 50px 0 40px;
+            font-size: 35px;
+            font-weight: bold;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+        }
+
+        #edit-btn {
+            margin: 0px 0px 0px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            width: 180px;
+            padding: 10px 0px;
+            border-radius: 5px;
+            border: none;
+            background-color: black;
+            color: white;
+        }
+
+        #edit-btn:hover {
+            background-color: rgba(2, 2, 2, 0.242);
+            color: black;
+        }
+
+        .line {
+            width: 90%;
+            height: 80px;
+            margin: 0px 60px;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 3px 3px 15px gainsboro, -3px -3px 15px gainsboro;
+
+        }
+
+        #file {
+            display: none;
+        }
+
+        #uploadbtn {
+            cursor: pointer;
+            display: none;
+            margin: 76px 30px 0px -52px;
+        }
+
+        /*purchase styling*/
+        .purchase {
+            width: 90%;
+            height: 250px;
+            margin: 20px 60px;
+            display: flex;
+            align-items: center;
+            background-color: rgb(255, 255, 255);
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 3px 3px 15px gainsboro, -3px -3px 15px gainsboro;
+        }
+
+        .header {
+            width: 90%;
+            height: 60px;
+            margin: 20px 60px;
+            display: flex;
+            align-items: center;
+            background-color: rgb(255, 255, 255);
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 3px 3px 15px gainsboro, -3px -3px 15px gainsboro;
+        }
+
+        #pur-img {
+            margin-left: 30px;
+        }
+
+        .pur-details {
+            width: 600px;
+            height: 200px;
+            margin-left: 40px;
+            background-color: rgb(255, 255, 255);
+        }
+
+        #pur-home {
+            margin: 15px 0px 0px 0px;
+            ;
+            font-size: 30px;
+            font-weight: bold;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        #pur-add {
+            margin: 15px 0px 0px 0px;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        #pur-cost {
+            margin: 15px 0px 0px 0px;
+            font-size: 32px;
+            font-weight: bolder;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        #pur-type {
+            margin: 15px 0px 0px 0px;
+            font-size: 17px;
+            font-weight: 700;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .pur-btn {
+            width: 250px;
+            height: 200px;
+            background-color: rgb(255, 255, 255);
+        }
+
+        .btn {
+            margin: 40px 0px 0px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            width: 200px;
+            padding: 7px 0px;
+            border-radius: 5px;
+            border: none;
+            background-color: black;
+            color: white;
+        }
+
+        .btn:hover {
+            background-color: rgba(2, 2, 2, 0.242);
+            color: black;
+        }
+
+        #pur-ety {
+            margin: 100px 0px 0px 350px;
+            font-size: 30px;
+            font-weight: bold;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        #ety-btn {
+            margin: 20px 0px 0px 500px;
+            background-color: black;
+            color: white;
+            padding: 8px 30px;
+            border-radius: 5px;
+            border: none;
+            font-size: 17px;
+            font-weight: bold;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        #ety-btn:hover {
+            background-color: rgba(2, 2, 2, 0.242);
+            color: black;
+        }
+        .name{
+            margin-left: 125px;
+            margin-bottom: 20px;
+            margin-top:10px;
+            width: 900px;
+            padding: 8px;
+            border-radius: 5px;
+            border: 2px solid black;
+            outline: none;
+        }
+        #btn{
+            margin: 0px 0px 110px 370px;
+            width: 400px;
+            font-size: 17px;
+            font-weight: bold;
+            padding: 7px;
+            color: white;
+            border: none;
+            background-color: black;
+            border-radius: 5px;
+        }
+        #btn:hover{
+            background-color: rgb(192, 192, 192);
+            color: black;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <nav>
+        <h1><span id="s">4</span>Squares.com</h1>
+        <a class="a" href="ahome.html">Buyer</a>
+        <a class="a" href="profile.html">Profile</a>
+        <a class="a" href="login.html">Login</a>
+        <p class="a" onclick="logout()">Logout</p>
+        <input type="search" name="" placeholder="Houses & Villas" id="srh">
+        <img id="icon" src="nav/srhh2.png" height="17" width="17" alt="">
+    </nav>
+    <div class="profile">
+        <div class="line">
+            <hr size="3" color="black" width="466">
+            <h1 id="h1">Profile</h1>
+            <hr size="3" color="black" width="466">
+        </div>  
+        <div class="div-file">
+          <!--  <div class="pro-file">
+                <img id="pro-img" src="nav/profile.png" height="100" width="100" alt="">
+                <input type="file" id="file">
+                <label for="file" id="uploadbtn"><img src="nav/cam.png" width="22" alt=""></label>
+                <b id="name">Rohit sharma</b>
+                <button id="edit-btn" onclick="edit()">Edit</button>
+            </div>
+            <div class="file-dt">
+                <p class="eml">Email: <span class="dt-data">xyz@gmail.com</span></p>
+                <p class="pho">Phone: <span class="dt-data">1234567890</span></p>
+            </div> -->
+        </div>
+        <div class="header">
+            <h1 style="font-size: 30px; margin: 0px 30px 0px 40px;">Bookings</h1>
+            <hr size="3" color="black" width="900" style="margin: 10px 10px 10px 0px;">
+        </div>
+        <div class="empry">
+            <div class="ety">
+                <p id="pur-ety">You have not Booked anything</p>
+                <button id="ety-btn" onclick="backtohome()">Back to Home</button>
+            </div>
+            <div class="pur">
+                <!--  <div class="purchase">
+                <img id="pur-img" src="home/home21.jpg" width="200" height="200" alt="">
+                <div class="pur-details">
+                    <p id="pur-home">gfjdiusdhsddhs</p>
+                    <p id="pur-add">bdfihfnnsdhfnm;masdmdcjfdmcm</p>
+                    <p id="pur-cost">Rs 100 kfmf</p>
+                    <p id="pur-type">Lease</p>
+                </div>
+                <div class="pur-btn">
+                    <button class="btn">Details</button>
+                    <button class="btn">Cancel</button>
+                </div>
+            </div>-->
+            </div>
+        </div>
+    </div>
+    <script>
+        let pur = document.querySelector(".pur")
+        let empty = document.querySelector(".empty")
+        let logg = JSON.parse(localStorage.getItem("log")) || []
+        let product = JSON.parse(localStorage.getItem("data")) || []
+        fetch('http://localhost/phpprograms/project1/backend/getpur.php', {
+            method: 'GET',
+            header: {
+                'content-type': 'application/json',
+                'accept': 'application/json'
+            }
+        }).then(res =>  res.json())
+            .then(data => {
+                console.log(data)
+                return pur.innerHTML = data.map((x) => {
+                    let { id, image, homeName, address, price, type, cid } = x
+                    let search = logg.find((y) => y.loggedin === cid)
+                    if (search !== undefined) {
+                        document.querySelector(".ety").textContent = ``
+                        return `<div class="purchase">
+                <img id="pur-img" src="home/${image}" width="200" height="200" alt="">
+                <div class="pur-details">
+                    <p id="pur-home">${homeName}</p>
+                    <p id="pur-add">${address}</p>
+                    <p id="pur-cost">${price}</p>
+                    <p id="pur-type">${type}</p>
+                </div>
+                <div class="pur-btn">
+                    <button onclick="add(${id})" class="btn">Details</button>
+                    <button onclick="del(${id})" class="btn">Cancel</button>
+                </div>
+            </div>`
+                    }
+
+                }).join("")
+
+            })
+        let logout = () => {
+            localStorage.clear()
+            location.href = `login.html`
+        }
+
+        let backtohome = () => {
+            location.href = `ahome.html`
+        }
+
+        fetch('http://localhost/phpprograms/project1/backend/user.php', {
+            method: 'GET',
+            header: {
+                'content-type': 'application/json',
+                'accept': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data)
+                let page = data.map((x) => {
+                    let { id, image, name, email, phone } = x
+                    let search = logg.find((y) => y.loggedin === id)
+                    if (search !== undefined) {
+                        return `  <div class="pro-file">
+                <img id="pro-img" src="profile/${image}" height="100" width="100" alt="">
+                <input type="file" id="file">
+                <label for="file" id="uploadbtn"><img src="nav/cam.png" width="22" alt=""></label>
+                <b id="name">${name}</b>
+                <button id="edit-btn" onclick="edit()">Edit</button>
+            </div>
+            <div class="file-dt">
+                <p class="eml">Email: <span class="dt-data">${email}</span></p>
+                <p class="pho">Phone: <span class="dt-data">${phone}</span></p>
+            </div>`
+                    }
+
+                }).join("")
+                document.querySelector(".div-file").innerHTML =page
+            })
+
+        let edit = () => {
+            // let divfile = document.querySelector(".div-file")
+            document.querySelector(".pro-file").innerHTML =""
+            document.querySelector(".file-dt").innerHTML =""
+            let log = logg.find((z)=>z.loggedin != null)
+           let a=log.loggedin
+            let edits = `  <form action="http://localhost/phpprograms/project1/backend/profile.php" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value=${a}>
+                    <input type="text" name="name" id="pass" class="name" placeholder="name" >
+                    <input type="file" name="image" id="pass" class="name" placeholder="image" >
+                    <input type="email" name="email" id="email" class="name" placeholder="xyz@email.com" >
+                    <input type="text" name="phone" id="pass" class="name" placeholder="phone" ><br>
+                    <input type="submit" value="Done" id="btn">
+                </form>`
+                document.querySelector(".div-file").innerHTML =edits
+        }
+    
+        function add(id) {
+    //console.log(id)
+    let search = product.find((x) => x.id === id)
+    console.log(search)
+    if (search === undefined) {
+        product.push({
+            id: id
+        })
+    } else return
+    localStorage.setItem("data", JSON.stringify(product))
+    location.href = "details.html"
+}
+ function del(id){
+    let as =id
+  //  console.log(as)
+  fetch('http://localhost/phpprograms/project1/backend/del.php', {
+                    method:'POST',
+                    header:{
+                        'content-type':'application/json',
+                        'accept':'application/json'
+                      },
+                      body:JSON.stringify(as)
+                  }).then(res=>{ return res.text()})
+                  .then(data=>{
+                    console.log(data)
+                    location.href = "profile.html"
+                  })
+
+ }
+       /* let profile = document.querySelector(".div-file")
+        let img = document.querySelector("#pro-img")
+        console.log(img)
+        let file = document.querySelector("#file")
+        console.log(file)
+        let upload = document.querySelector("#uploadbtn")
+        profile.addEventListener("mouseenter", function () {
+            upload.style.display = "block"
+        })
+        profile.addEventListener("mouseleave", function () {
+            upload.style.display = "none"
+        })
+        file.addEventListener("change", function () {
+            let choosefile = this.files[0]
+            console.log(choosefile)
+            if (choosefile) {
+                const reader = new FileReader()
+                reader.addEventListener("load", function (e) {
+                    e.preventDefault()
+                    img.setAttribute('src', reader.result)
+                })
+                reader.readAsDataURL(choosefile)
+            }
+        })*/
+
+    </script>
+</body>
+
+</html>

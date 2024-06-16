@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="container">
+        <form id="form">
+            <p id="sign">Register</p>
+            <!-- <label id="lab">name:</label>-->
+            <input type="text" name="name" id="name" class="name" placeholder="name" required>
+            <!--<label id="lab1" >Email:</label>-->
+            <input type="email" name="email" class="name" id="email" placeholder="xyz@email.com" required>
+            <!--<label id="lab2">password:</label>-->
+            <input type="text" name="password" class="name" id="pass" placeholder="password" required>
+            <input type="checkbox" name="gender" value="male" id="ma" required><label id="term">I accept
+                terms&conditions</label>
+            <input type="submit" value="Register" id="btn">
+            <div id="line">
+                <hr size="2" width="125" align="left" color="black"> <b id="or">OR</b>
+                <hr size="2" width="125" color="black">
+            </div>
+            <a href="login.html" id="log">Login</a>
+        </form>
+    </div>
+    <script>
+        let form = document.querySelector("form")
+        let logg = JSON.parse(localStorage.getItem("log")) || []
+    
+            //console.log(form)
+        let register = []
+        form.addEventListener("submit", (e) => {
+            // console.log("in submit")
+            e.preventDefault()
+            let nam = document.getElementById("name").value
+            let email = document.getElementById("email").value
+            let pass = document.getElementById("pass").value
+            register.push({
+                name: nam,
+                email: email,
+                password: pass
+            })
+            // console.log(register)
+            fetch('http://localhost/phpprograms/project1/backend/register.php', {
+                method: 'POST',
+                header: {
+                    'content-type': 'application/json',
+                    'accept': 'application/json'
+                },
+                body: JSON.stringify(register)
+
+            }).then(res => { return res.text() })
+                .then(data => {
+                    console.log(data)
+                    if (data !=="") {
+                        alert('Welcome to 4square.com')
+                        if(logg == 0){
+                       logg.push({
+                        loggedin:data
+                       })
+                       location.href = `ahome.html`
+                       localStorage.setItem("log",JSON.stringify(logg))
+                    }else{
+                       
+                       location.href = `ahome.html`
+                    }  
+                    } else {
+                        alert("user already exist")
+                        location.href = `login.html`
+                    }
+
+                })    
+
+        })
+    </script>
+</body>
+
+</html>

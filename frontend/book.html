@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>book page</title>
+    <link rel="stylesheet" href="book.css">
+</head>
+
+<body>
+    <nav>
+        <a href="ahome.html">
+            <img id="arrow" onclick="remove()" src="nav/arrow.png" width="40" height="44" alt=""></a>
+        <h1><span id="s">4</span>Squares.com</h1>
+        <a class="a" href="ahome.html">Buyer</a>
+        <a class="a" href="profile.html">Profile</a>
+        <a class="a" href="login.html">Login</a>
+        <p class="a"onclick="logout()">Logout</p>
+        <input type="search" name="" placeholder="Houses & Villas" id="srh">
+        <img id="icon" src="nav/srhh2.png" height="17" width="17" alt="">
+    </nav>
+    <div class="div-book">
+
+    </div>
+    <script>
+        let product = JSON.parse(localStorage.getItem("data")) || []
+        let house = JSON.parse(localStorage.getItem("home")) || []
+        let logg = JSON.parse(localStorage.getItem("log")) || []
+        let homedata = () => {
+            fetch('http://localhost/phpprograms/project1/backend/house.php', {
+                method: 'GET',
+                header: {
+                    'content-type': 'application/json',
+                    'accept': 'application/json'
+                }
+            }).then(res => res.json())
+                .then(data => {
+                    let home = data
+                    // console.log(home)
+                    productname(home)
+
+                })
+        }
+        homedata()
+
+        function productname(home) {
+            let items = product.map((x) => {
+                let { id } = x
+                let search = home.find((x) => x.id == id)
+                let { image, homeName, address, price, type, builtup_area, total_area, owner, about_home, agent, number } = search
+                let get = house.find((y) => y.id == id)
+                let log = logg.find((z)=>z.loggedin != null)
+                let userid=log.loggedin
+                if (get === undefined) {
+                    house.push({
+                        id: id,
+                        image: image,
+                        homeName: homeName,
+                        address: address,
+                        price: price,
+                        type: type,
+                        userid:userid
+                    })
+                    localStorage.setItem("home", JSON.stringify(house))
+                }
+                return ` <h1 id="h1">Booking Details</h1>
+        <hr size="2" color="black" style="margin: 15px;">
+        <div class="book-detail">
+            <div class="book-product">
+                <img class="book-img" src="home/${image}" height="200" width="200" alt="">
+                <div class="bp">
+                    <p id="name">${homeName}</p>
+                    <p id="address">${address}</p>
+                    <p id="price">${price}</p>
+                    <p id="type">on ${type}</p>
+                </div>
+            </div>
+            <div class="agent">
+                <h2 id="h2">Agent Details</h2>
+                <hr size="2" color="black" style="margin: 10px 10px 10px 0px;">
+                <p id="agent-name">Name:<span>${agent}</span></p>
+                <p id="agent-number">Number:<span>${number}</span></p>
+                <p id="booking">for booking pay</p>
+                <p id="rs">Rs 500/-</p>
+            </div>
+        </div>
+        <hr size="2" color="black" style="margin: 15px;">
+        <h2 id="meet">Schedule Meeting</h2>
+        <div class="time">
+            <input type="radio" name="one" value="10am-12noon" class="one"><b>10am-12noon</b>
+            <input type="radio" name="one" value="10am-12noon" class="one"><b>12noon-2pm</b>
+            <input type="radio" name="one" value="3pm-5pm" class="one"><b>3pm-5pm</b>
+            <input type="radio" name="one" value="5pm-7pm" class="one"><b>5pm-7pm</b>
+            <button onclick="remove()" class="buy-btn">Book Meeting</button>
+        </div>`;
+            })
+            document.querySelector(".div-book").innerHTML = items
+        }
+        let val = document.getElementsByClassName("one").value
+            console.log(val)
+        let remove = () => {
+            let success = ` <div class="success">
+        <img id="suc-img" src="nav/green.png" width="80" height="80" alt="">
+        <h1 id="suc-name">Booked Successfully</h1>
+        <button id="suc-btn" onclick="backtohome()">Back to Home</button>
+       </div>`
+            document.querySelector(".div-book").innerHTML = success
+
+            fetch('http://localhost/phpprograms/project1/backend/purchase.php', {
+                method: 'POST',
+                header: {
+                    'content-type': 'application/json',
+                    'accept': 'application/json'
+                },
+                body:JSON.stringify(house)
+            }).then(res =>{ return res.text()})
+                .then(data => {
+                    console.log(data) 
+                })
+                localStorage.removeItem('home')
+                localStorage.removeItem('data')
+        }
+        let backtohome = () => {
+            location.href = `ahome.html`
+        }
+        let logout = () => {
+        localStorage.clear()
+        location.href = `login.html`
+    }
+        /*
+        <h1 id="h1">Booking Details</h1>
+        <hr size="2" color="black" style="margin: 15px;">
+        <div class="book-detail">
+            <div class="book-product">
+                <img class="book-img" src="home/home15.jpg" height="200" width="200" alt="">
+                <div class="bp">
+                    <p id="name">ASD PALACE</p>
+                    <p id="address">Ram nagar,Dharwad</p>
+                    <p id="price">Rs 30lakh</p>
+                    <p id="type">on Lease</p>
+                </div>
+            </div>
+            <div class="agent">
+                <h2 id="h2">Agent Details</h2>
+                <hr size="2" color="black" style="margin: 10px 10px 10px 0px;">
+                <p id="agent-name">Name:<span>Ravi kumar</span></p>
+                <p id="agent-number">Number:<span>123456778</span></p>
+                <p id="booking">for booking pay</p>
+                <p id="rs">Rs 500/-</p>
+            </div>
+        </div>
+        <hr size="2" color="black" style="margin: 15px;">
+        <h2 id="meet">schedule Meeting</h2>
+        <div class="time">
+            <input type="radio" name="one" value="10am-12noon" id="one"><b>10am-12noon</b>
+            <input type="radio" name="one" value="10am-12noon" id="one"><b>12noon-2pm</b>
+            <input type="radio" name="one" value="3pm-5pm" id="one"><b>3pm-5pm</b>
+            <input type="radio" name="one" value="5pm-7pm" id="one"><b>5pm-7pm</b>
+            <button class="buy-btn">Book Meeting</button>
+        </div>*/
+    </script>
+</body>
+
+</html>
